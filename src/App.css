@@ -1,0 +1,21 @@
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.text-area {
+  width: 100%;
+}
+
+.svg-error {
+  display: block;
+}
+
+pre {
+  background-color: #121212;
+  padding: 10px;
+  color: rgb(224, 70, 70);
+}
