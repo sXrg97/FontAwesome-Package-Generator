@@ -111,7 +111,7 @@ function App() {
       <div>
         <div className="logo" style={{ textAlign: "center" }}>
           <img
-            src={"../public/fontawesome-kit-generator-favicon.svg"}
+            src={"/public/fontawesome-kit-generator-favicon.svg"}
             width={100}
           />
         </div>
