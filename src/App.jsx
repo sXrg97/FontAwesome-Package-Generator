@@ -4,6 +4,8 @@ import { useState } from "react";
 function App() {
   const [erroredSvgs, setErroredSvgs] = useState([]);
   const [svgs, setSvgs] = useState([]);
+  const [usePrefix, setUsePrefix] = useState(true);
+  const [prependText, setPrependText] = useState("fa-")
 
   const handleDownload = async (svgUrl, className) => {
     const [prefix] = className.split(" ");
@@ -19,7 +21,11 @@ function App() {
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${prefix} fa-${svgUrl.split("/").pop()}`;
+      if (usePrefix) {
+        a.download = `${prefix} ${prependText}${svgUrl.split("/").pop()}`;
+      } else {
+        a.download = `${prependText}${svgUrl.split("/").pop()}`;
+      }
       a.style.display = "none";
 
       document.body.appendChild(a);
@@ -109,13 +115,52 @@ function App() {
           onPaste={handleTextAreaChange}
           onCut={handleTextAreaChange}
         ></textarea>
-        <button onClick={handleClick}>Download SVG</button>
+        <div style={{padding: "10px 0"}}>
+          <div>
+            <label title="Use the prefix in downloaded icon names? (eg. fab )">
+              Use prefix?
+              <input
+                type="checkbox"
+                checked={usePrefix}
+                onClick={() => {
+                  setUsePrefix((prev) => !prev);
+                }}
+              />
+            </label>
+          </div>
+          <div>
+            <label title="Goes between the prefix and the icon name. (default: fa-)">
+              Prepend name: 
+              <input
+                type="text"
+                value={prependText}
+                onChange={(e) => {
+                  setPrependText(e.target.value);
+                }}
+                style={{marginLeft: "5px"}}
+              />
+            </label>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <button onClick={handleClick}>Download SVGs</button>
+        </div>
         {erroredSvgs.length > 0 && (
           <>
-            <span style={{display: "block", marginTop: 13}}>Could not find the following icons:</span>
+            <span style={{ display: "block", marginTop: 13 }}>
+              Could not find the following icons:
+            </span>
             <pre>
               {erroredSvgs.map((err) => (
-                <span className="svg-error" key={err}>{err}</span>
+                <span className="svg-error" key={err}>
+                  {err}
+                </span>
               ))}
             </pre>
           </>
