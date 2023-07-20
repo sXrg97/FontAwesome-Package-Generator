@@ -5,7 +5,9 @@ function App() {
   const [erroredSvgs, setErroredSvgs] = useState([]);
   const [svgs, setSvgs] = useState([]);
 
-  const handleDownload = async (svgUrl) => {
+  const handleDownload = async (svgUrl, className) => {
+    const [prefix] = className.split(" ");
+    console.log(prefix);
     try {
       const response = await fetch(svgUrl);
       if (!response.ok) {
@@ -17,7 +19,7 @@ function App() {
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${svgUrl.split("/").pop()}.svg`;
+      a.download = `${prefix} fa-${svgUrl.split("/").pop()}`;
       a.style.display = "none";
 
       document.body.appendChild(a);
@@ -82,7 +84,7 @@ function App() {
     validSvgs.forEach((className, i) => {
       const svgUrl = fetchIconSvg(className);
       setTimeout(() => {
-        handleDownload(svgUrl);
+        handleDownload(svgUrl, className);
       }, 300 * i);
     });
   };
