@@ -1,5 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 import { useState } from "react";
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
+import { Toaster, toast } from "react-hot-toast";
+
 
 function App() {
   const [erroredSvgs, setErroredSvgs] = useState([]);
@@ -102,7 +106,54 @@ function App() {
   return (
     <>
       <div>
-        <h1>FontAwesome Package Generator</h1>
+        <Toaster position="bottom-right" reverseOrder={false} />
+      </div>
+      <div>
+        <div className="logo" style={{ textAlign: "center" }}>
+          <img
+            src={"../public/fontawesome-kit-generator-favicon.svg"}
+            width={100}
+          />
+        </div>
+        <h1>FontAwesome Kit Generator</h1>
+
+        <div className="info">
+          <span>
+            You can use the following REGEx to search globally within your
+            project for all the FontAwesome Icons
+          </span>
+          <pre
+            onClick={() => {
+              navigator.clipboard.writeText('\\b(fa|fal|fas|fab|far) \\S+">');
+              toast.success("Successfully copied to clipboard!");
+            }}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            \b(fa|fal|fas|fab|far) \S+&quot;&gt;
+            <FontAwesomeIcon icon={faCopy} style={{ marginRight: "5px" }} />
+          </pre>
+          <pre
+            onClick={() => {
+              navigator.clipboard.writeText(`content:\\s*["']\\\\f[^"']*["'];`);
+              toast.success("Successfully copied to clipboard!");
+            }}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            content:\s*[&quot;&apos;]\\f[^&quot;&apos;]*[&quot;&apos;];
+            <FontAwesomeIcon icon={faCopy} style={{ marginRight: "5px" }} />
+          </pre>
+        </div>
+
         <textarea
           placeholder={
             "Paste your icons below, each on a new line (eg. fab fa-facebook-square)"
@@ -115,7 +166,7 @@ function App() {
           onPaste={handleTextAreaChange}
           onCut={handleTextAreaChange}
         ></textarea>
-        <div style={{padding: "10px 0"}}>
+        <div style={{ padding: "10px 0" }}>
           <div>
             <label title="Use the prefix in downloaded icon names? (eg. fab )">
               Use prefix?
@@ -130,14 +181,14 @@ function App() {
           </div>
           <div>
             <label title="Goes between the prefix and the icon name. (default: fa-)">
-              Prepend name: 
+              Prepend name:
               <input
                 type="text"
                 value={prependText}
                 onChange={(e) => {
                   setPrependText(e.target.value);
                 }}
-                style={{marginLeft: "5px"}}
+                style={{ marginLeft: "5px" }}
               />
             </label>
           </div>

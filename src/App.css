@@ -12,10 +12,11 @@
 
 .svg-error {
   display: block;
+  color: rgb(224, 70, 70);
 }
 
 pre {
   background-color: #121212;
   padding: 10px;
-  color: rgb(224, 70, 70);
+  color: rgb(46, 207, 46);
 }
