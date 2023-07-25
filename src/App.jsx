@@ -26,9 +26,9 @@ function App() {
       const a = document.createElement("a");
       a.href = url;
       if (usePrefix) {
-        a.download = `${prefix} ${prependText}${svgUrl.split("/").pop()}`;
+        a.download = `${prefix}.${prependText}${svgUrl.split("/").pop()}`;
       } else {
-        a.download = `${prependText}${svgUrl.split("/").pop()}`;
+        a.download = `${prependText}.${svgUrl.split("/").pop()}`;
       }
       a.style.display = "none";
 
